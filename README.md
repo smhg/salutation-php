@@ -1,5 +1,6 @@
-# Salutation
-Salutation generator
+salutation [![Build status](https://api.travis-ci.org/smhg/salutation-php.png)](https://travis-ci.org/smhg/salutation-php)
+=============
+Generates a salutation based on predefined formats.
 
 ## Features
 * Locale aware formatting
@@ -28,8 +29,5 @@ $salutation = new Salutation('nl_BE', array(
 ));
 
 echo $salutation;
-```
-Result:
-```bash
-Beste Jan, Dr. Peters,
+// Beste Jan, Dr. Peters,
 ```
