@@ -23,8 +23,17 @@ class SalutationTest extends \PHPUnit_Framework_TestCase
 				'first' => 'Peter',
 				'last' => 'Peters'
 			)
-		));    	
+		));
 
 		$this->assertEquals('Beste Jan, Dr. Peters,', (string)$salutation);
+
+        $salutation = new Salutation('nl_BE', array(
+            array(
+                'first' => '',
+                'last' => ''
+            )
+        ));
+
+        $this->assertEquals('Beste,', (string)$salutation);
     }
 }

@@ -36,11 +36,6 @@ class Salutation
 
         $greeting = $data['greeting'][$this->_mode];
 
-        $format = 'greetingFormat';
-        if (empty($this->_names)) {
-            $format = 'greetingNoNameFormat';
-        }
-
         $names = array_map(function ($name) use ($data) {
             // defaults
             $name = array_merge(array('title' => '', 'first' => '', 'last' => ''), $name);
@@ -52,6 +47,11 @@ class Salutation
 
             return sprintf($data[$format], $name['title'], $name['first'], $name['last']);
         }, $this->_names);
+
+        $format = 'greetingFormat';
+        if (empty($this->_names) || strlen(trim(implode('', $names))) === 0) {
+            $format = 'greetingNoNameFormat';
+        }
 
         return sprintf($data[$format], $greeting, implode(', ', $names));
     }
