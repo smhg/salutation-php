@@ -1,0 +1,2 @@
+# Salutation
+Salutation generator
