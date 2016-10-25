@@ -5,11 +5,11 @@ define('SALUTATION_LOCALE_DIR', dirname(__FILE__) . '/../../locale/');
 
 class Salutation
 {
-    private $_data = array();
+    private $data = array();
 
-    private $_names = array();
+    private $names = array();
 
-    private $_mode = 'formal';
+    private $mode = 'formal';
 
     public function __construct($locale, $names = array(), $mode = 'formal')
     {
@@ -23,20 +23,21 @@ class Salutation
             throw new Exception('No data available for locale "' . $locale . '"');
         }
 
-        $this->_data = json_decode(file_get_contents($localeFile), $assoc = true);
+        $assoc = true;
+        $this->data = json_decode(file_get_contents($localeFile), $assoc);
 
-        $this->_names = $names;
+        $this->names = $names;
 
-        $this->_mode = $mode;
+        $this->mode = $mode;
     }
 
     public function __toString()
     {
-        $data = $this->_data;
+        $data = $this->data;
 
-        $greeting = $data['greeting'][$this->_mode];
+        $greeting = $data['greeting'][$this->mode];
 
-        $names = array_map(function ($name) use ($data) {
+        $names = array_reduce($this->names, function ($result, $name) use ($data) {
             // defaults
             $name = array_merge(array('title' => '', 'first' => '', 'last' => ''), $name);
 
@@ -45,11 +46,17 @@ class Salutation
                 $format = 'nameNoTitleFormat';
             }
 
-            return sprintf($data[$format], $name['title'], $name['first'], $name['last']);
-        }, $this->_names);
+            $nameString = sprintf($data[$format], $name['title'], $name['first'], $name['last']);
+
+            if ($nameString) {
+                $result[] = $nameString;
+            }
+
+            return $result;
+        }, array());
 
         $format = 'greetingFormat';
-        if (empty($this->_names) || strlen(trim(implode('', $names))) === 0) {
+        if (empty($this->names) || strlen(trim(implode('', $names))) === 0) {
             $format = 'greetingNoNameFormat';
         }
 

@@ -8,7 +8,7 @@ class SalutationTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
     	$this->setExpectedException('Salutation\Exception');
-    	$salutation = new Salutation('nl');
+    	new Salutation('nl');
     }
 
     public function testToString()
@@ -35,5 +35,20 @@ class SalutationTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals('Beste,', (string)$salutation);
+
+        $salutation = new Salutation('nl_BE', array(
+            array(
+                'title' => '',
+                'first' => '',
+                'last' => ''
+            ),
+            array(
+                'title' => 'Dr.',
+                'first' => 'Peter',
+                'last' => 'Peters'
+            )
+        ));
+
+        $this->assertEquals('Beste Dr. Peters,', (string)$salutation);
     }
 }
