@@ -9,7 +9,7 @@ Generates a salutation based on predefined formats.
 
 ## Installation
 ```bash
-composer require smhg\salutation
+composer require smhg/salutation
 ```
 
 ## Usage
