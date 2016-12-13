@@ -1,0 +1,10 @@
+{
+  "greeting": {
+    "formal": "Kedves",
+    "informal": "Szia"
+  },
+  "greetingFormat": "%1$s %2$s!",
+  "greetingNoNameFormat": "%1$s!",
+  "nameFormat": "%1$s %3$s",
+  "nameNoTitleFormat": "%2$s"
+}
